@@ -15,8 +15,7 @@ GENERAL
 .bg-cover-index {
 	background-image: url("http://placehold.it/1920x1080");
 }
-body{
-	background: #000000 !important;
+.inncredi-font{
 	font-family: silom;
 }
 .help-block { display: block; }

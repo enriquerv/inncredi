@@ -29,6 +29,9 @@
 
 @section('styles')
 	<style>
+		body{
+			background: #000 !important;
+		}
 		.main-text{
 			font-family: 'silom';
 		}
