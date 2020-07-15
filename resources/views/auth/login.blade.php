@@ -10,7 +10,17 @@
       <div class="row h-100 align-items-center justify-content-center">
         <div class="col-md-5">
           <div class="card shadow-lg border-0 rounded-lg mt-5">
-            <div class="card-header"><h3 class="text-center font-weight-light my-4">{{ $login_title }}</h3></div>
+            <div class="card-header row">
+              <div class="col-3">
+                <img src="{{ env('APP_URL') }}/assets/images/logo_b.png" width="100px">
+              </div>
+              <div class="col-6">
+                <h2 class="text-center font-weight-light my-4">
+                  {{ $login_title }}
+                </h2>
+              </div>
+
+            </div>
             <div class="card-body">
               {!! Form::open(['route' => 'login', 'method' => 'post', 'id' => 'formValidation', 'class' => 'form-horizontal']) !!}
                   {!! Form::hidden('previous', $previous) !!}
@@ -44,6 +54,13 @@
         </div>
       </div>
     </section>
+
+    <style>
+      body{
+        background-color: #000;
+      }
+    </style>
+
 @endsection
 
 @section('scripts')

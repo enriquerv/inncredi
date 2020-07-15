@@ -24,52 +24,53 @@ class UsersTableSeeder extends Seeder
 			'permissions' => array('admin' => 1),
 		]);
 
-		$customerRole = Sentinel::getRoleRepository()->createModel()->create([
-			'slug' => 'customer',
-			'name' => 'Cliente',
-			'permissions' => array('custo' => 2),
-		]);
-
 		$admins = [
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Ivan',
-				'last_name' 	=> 'Ramírez',
-				'email' 		=> 'iramirez@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Jorge',
-				'last_name' 	=> 'Hernández',
-				'email' 		=> 'jhernandez@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Fernando',
-				'last_name' 	=> 'Resendiz',
-				'email' 		=> 'fresendiz@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Nevin',
-				'last_name' 	=> 'Santana',
-				'email' 		=> 'nevsantana@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
 			Sentinel::registerAndActivate([
 				'first_name' 	=> 'Enrique',
 				'last_name' 	=> 'Rodriguez',
-				'email' 		=> 'erodriguez@fabricadesoluciones.com',
+				'email' 		=> 'erodriguez@inncredi.com',
 				'password' 		=> 'asdasd',
 				'role_id' 		=> 1,
 			]),
 			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Karla',
-				'last_name' 	=> 'Reyes',
-				'email' 		=> 'kreyes@fabricadesoluciones.com',
+				'first_name' 	=> 'Carlos',
+				'last_name' 	=> 'Avila',
+				'email' 		=> 'cavila@inncredi.com',
+				'password' 		=> 'asdasd',
+				'role_id' 		=> 1,
+			]),
+			Sentinel::registerAndActivate([
+				'first_name' 	=> 'Rosalba',
+				'last_name' 	=> 'Pastora',
+				'email' 		=> 'rrodriguez@inncredi.com',
+				'password' 		=> 'asdasd',
+				'role_id' 		=> 1,
+			]),
+			Sentinel::registerAndActivate([
+				'first_name' 	=> 'Jessica',
+				'last_name' 	=> 'Avila',
+				'email' 		=> 'javila@inncredi.com',
+				'password' 		=> 'asdasd',
+				'role_id' 		=> 1,
+			]),
+			Sentinel::registerAndActivate([
+				'first_name' 	=> 'Brit',
+				'last_name' 	=> 'Montes de Oca',
+				'email' 		=> 'bmontes@inncredi.com',
+				'password' 		=> 'asdasd',
+				'role_id' 		=> 1,
+			]),
+			Sentinel::registerAndActivate([
+				'first_name' 	=> 'Eduardo',
+				'last_name' 	=> 'Montes de oca',
+				'email' 		=> 'emontes@inncredi.com',
+				'password' 		=> 'asdasd',
+				'role_id' 		=> 1,
+			]),
+			Sentinel::registerAndActivate([
+				'first_name' 	=> 'Antonio',
+				'last_name' 	=> 'Rodriguez',
+				'email' 		=> 'arodriguez@inncredi.com',
 				'password' 		=> 'asdasd',
 				'role_id' 		=> 1,
 			]),

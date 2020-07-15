@@ -33,6 +33,119 @@ class SendMail extends Model
         return $mail;
     }
 
+    public static function createMailMeeting($file, $subject, $body, $mailTo)
+    {
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+            $mail->Host = env('MAIL_HOST');
+            $mail->Port = env('MAIL_PORT');
+            $mail->Username = env('MAIL_MEETING_USERNAME');
+            $mail->Password = env('MAIL_MEETING_PASSWORD');
+
+            $mail->setFrom(env('MAIL_MEETING_USERNAME'));
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = $subject;
+            $mail->MsgHTML($body);
+            $mail->AddAttachment($file);
+            foreach ($mailTo as $user) {
+                $mail->addAddress($user['email'], $user['name']);
+            }
+            if($mail->send()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        } catch (phpmailerException $e) {
+            dd($e);
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public static function createMailImprovement($files, $subject, $body, $mailTo)
+    {
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+            $mail->Host = env('MAIL_HOST');
+            $mail->Port = env('MAIL_PORT');
+            $mail->Username = env('MAIL_MEETING_USERNAME');
+            $mail->Password = env('MAIL_MEETING_PASSWORD');
+
+            $mail->setFrom(env('MAIL_MEETING_USERNAME'));
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = $subject;
+            $mail->MsgHTML($body);
+
+            foreach( $files as $file ) {
+                $mail->AddAttachment( $file );
+            }
+
+            foreach ($mailTo as $user) {
+                $mail->addAddress($user['email'], $user['name']);
+            }
+            if($mail->send()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        } catch (phpmailerException $e) {
+            dd($e);
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public static function createMailDevelopment($files, $subject, $body, $mailTo)
+    {
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+            $mail->Host = env('MAIL_HOST');
+            $mail->Port = env('MAIL_PORT');
+            $mail->Username = env('MAIL_MEETING_USERNAME');
+            $mail->Password = env('MAIL_MEETING_PASSWORD');
+
+            $mail->setFrom(env('MAIL_MEETING_USERNAME'));
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = $subject;
+            $mail->MsgHTML($body);
+
+            foreach( $files as $file ) {
+                $mail->AddAttachment( $file );
+            }
+
+            foreach ($mailTo as $user) {
+                $mail->addAddress($user['email'], $user['name']);
+            }
+            if($mail->send()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        } catch (phpmailerException $e) {
+            dd($e);
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
     public static function createMailTest()
     {
         $subject = 'Prueba Mail';
@@ -1043,6 +1156,148 @@ class SendMail extends Model
             $mail->addAddress($customer->email, $customer->first_name.' '.$customer->last_name);
             // $mail->addBCC('email', 'name');
             $mail->send();
+        } catch (phpmailerException $e) {
+            dd($e);
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    /* Notificación de Meta asignada */
+    public static function goalNotifications($data,$req)
+    {
+        $subject = 'Meta Asignada';
+        $req = json_decode($req, true);
+
+
+        $goals = "<ul>";
+        foreach( $req as $key => $goal ) {
+            if( $goal["qty"]>0 ) {
+                $goals .= "<li><p style='font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:5px;margin-top:0 !important;'><strong>".str_replace("'","",$goal["month"])."</strong></p>";
+                $goals .= "<p style='font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;'><strong>Cantidad a cubrir:</strong> ".$goal["qty"]."</p></li>";
+            }
+        }
+        $goals .= "</ul>";
+
+        $msg = '<table border="0" cellspacing="0" cellpadding="0" style="width: 600px; margin: 0 auto; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="'.URL::asset("assets/images/gnog.png").'" alt="GNOG" style="width:150px;max-width:100%;display:block;margin:0 auto;">
+                            <p style="margin-bottom:15px;margin-top:10px !important;></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;">
+                                Buen día estimado '.$data["name"].',
+                            </p>
+                            <p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;">
+                                Se te asignaron metas dentro del sistema MINUTAS RAK, las cuales se listan a continuación:
+                            </p>
+                            '.$goals.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin:0;">Enviado desde '.env("APP_URL").'</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        ';
+
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+            $mail->Host = env('MAIL_HOST');
+            $mail->Port = env('MAIL_PORT');
+            $mail->Username = env('MAIL_MEETING_USERNAME');
+            $mail->Password = env('MAIL_MEETING_PASSWORD');
+
+            $mail->setFrom(env('MAIL_MEETING_USERNAME'));
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = $subject;
+            $mail->MsgHTML($msg);
+            $mail->addAddress($data["email"], utf8_decode($data["name"]));
+            if($mail->send()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (phpmailerException $e) {
+            dd($e);
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    /* Notificación de Meta asignada */
+    public static function goalUpdateNotifications($data,$req,$old_goals)
+    {
+        $subject = 'Meta Asignada - Actualización';
+        $req = json_decode($req, true);
+        $old_goals = json_decode($old_goals, true);
+
+        $goals = "<ul>";
+        $pedro = 0;
+        foreach( $req as $key => $goal ) {
+            if( $goal["qty"]>0 ) {
+                $goals .= "<li><p style='font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:5px;margin-top:0 !important;'><strong>".str_replace("'","",$goal["month"])."</strong></p>";
+                $goals .= "<p style='font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;'><strong>Cantidad a cubrir:</strong> ".$old_goals[$pedro]["qty"]." -> ".$goal["qty"]."</p></li>";
+            }
+            $pedro++;
+        }
+        $goals .= "</ul>";
+
+        $msg = '<table border="0" cellspacing="0" cellpadding="0" style="width: 600px; margin: 0 auto; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="'.URL::asset("assets/images/gnog.png").'" alt="GNOG" style="width:150px;max-width:100%;display:block;margin:0 auto;">
+                            <p style="margin-bottom:15px;margin-top:10px !important;></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;">
+                                Buen día estimado '.$data["name"].',
+                            </p>
+                            <p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin-bottom:10px;margin-top:0 !important;">
+                                Se actualizaron tus metas dentro del sistema MINUTAS RAK, los cambios se muestran a continuación:
+                            </p>
+                            '.$goals.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;margin:0;">Enviado desde '.env("APP_URL").'</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        ';
+
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+            $mail->Host = env('MAIL_HOST');
+            $mail->Port = env('MAIL_PORT');
+            $mail->Username = env('MAIL_MEETING_USERNAME');
+            $mail->Password = env('MAIL_MEETING_PASSWORD');
+
+            $mail->setFrom(env('MAIL_MEETING_USERNAME'));
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = $subject;
+            $mail->MsgHTML($msg);
+            $mail->addAddress($data["email"], utf8_decode($data["name"]));
+            if($mail->send()){
+                return true;
+            }
+            else{
+                return false;
+            }
         } catch (phpmailerException $e) {
             dd($e);
         } catch (Exception $e) {

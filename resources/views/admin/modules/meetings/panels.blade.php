@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div class="col-md-3 mb-3 mb-md-0">
-                <label for="contact_fsr_id">Contacto Fábrica RAK:</label>
+                <label for="contact_fsr_id">Contacto Inncredi:</label>
                 <select id="contact_fsr_id" class="form-control" name="contact_fsr_id" required="">
                     <option value="null" selected="" disabled="">Selecciona...</option>
                     @foreach ($users as $id => $name)
@@ -71,7 +71,7 @@
 
 <div class="form-group form-row">
     <div class="col-md-12">
-        <label for="commitments_fsr">Compromisos Fábrica de Soluciones:</label>
+        <label for="commitments_fsr">Compromisos Inncredi:</label>
         <textarea id="commitments_fsr" name="commitments_fsr" class="form-control fc-admin" required="">{{ isset($item) ? $item->commitments_fsr : '' }}</textarea>
     </div>
 </div>
@@ -83,14 +83,14 @@
     </div>
 </div>
 
-<div class="form-group form-row">
+<div class="form-group form-row d-none">
     <div class="col-md-12">
-        <label for="pending_fsr">Pendientes Fábrica de Soluciones:</label>
+        <label for="pending_fsr">Pendientes Inncredi:</label>
         <textarea id="pending_fsr" name="pending_fsr" class="form-control fc-admin" required="">{{ isset($item) ? $item->pending_fsr : '' }}</textarea>
     </div>
 </div>
 
-<div class="form-group form-row">
+<div class="form-group form-row d-none">
     <div class="col-md-12">
         <label for="pending_client">Pendientes Cliente:</label>
         <textarea id="pending_client" name="pending_client" class="form-control fc-admin" required="">{{ isset($item) ? $item->pending_client : '' }}</textarea>

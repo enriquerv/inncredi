@@ -90,6 +90,7 @@ Route::group(array('middleware' => 'langMiddleware'), function () {
   Route::group(array('prefix' => 'admin', 'middleware' => 'sentinelAdmin'), function () {
     // Dashboard
     Route::get('/', array('as' => 'dashboard', 'uses' => 'DashboardController@index'));
+    Route::post('sendMail/meeting', array('as' => 'sendMail', 'uses' => 'FrontEndController@sendMailMeeting'));
 
     // Countries
     $route = 'countries';

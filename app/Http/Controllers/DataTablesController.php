@@ -29,7 +29,7 @@ class DataTablesController extends Controller
 
         return DataTables::of($rows)
             ->editColumn('created_at', '{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
-            ->addColumn('actions', function($row) use ($active, $view, $actions_value){
+            ->addColumn('actions', function($row) use ($active, $view, $actions_value, $request){
                 if($view == 'index'){
                     // 1 = (show, edit, delete)
                     // 2 = (show, edit)
@@ -39,6 +39,9 @@ class DataTablesController extends Controller
                     // 6 = (edit)
                     // 7 = (delete)
                     $actions = '';
+                    if( $request->model=='Meeting' || $request->model=='Improvement'  || $request->model=='Development' ){
+                        $actions .= '<a href="#" data-toggle="modal" data-target="#email_modal"><i class="fas fa-envelope fa-fw text-warning" title="send" onClick="setMeetingId('.$row->id.', \''.$request->model.'\')"></i></a>';
+                    }
                     if($actions_value == 1 || $actions_value == 2 || $actions_value == 3 || $actions_value == 5){
                         $actions .= '<a href='. route($active.'.show', $row->id) .'><i class="fa fa-info fa-fw text-primary" title="view"></i></a>';
                     }
