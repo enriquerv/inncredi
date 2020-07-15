@@ -28,6 +28,9 @@ Route::group(array('middleware' => 'langMiddleware'), function () {
   Route::get('contact', array('as' => 'contact', 'uses' => 'FrontEndController@getContact'));
   Route::post('contact', array('as' => 'contact', 'uses' => 'FrontEndController@postContact'));
   Route::get('thanks', array('as' => 'thanks', 'uses' => 'FrontEndController@thanks'));
+  Route::get('footers', function(){
+    return view('footers');
+  });
 
   /*
    * Auth
