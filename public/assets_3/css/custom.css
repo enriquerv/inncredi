@@ -1,12 +1,6 @@
 /*=============================================================================
 GENERAL
 =============================================================================*/
-
-@font-face {
-  font-family: silom;
-  src: url('fonts/silom.ttf');
-}
-
 *::-moz-selection { background: lightblue; color: initial; text-shadow: none; }
 *::selection { background: lightblue; color: initial; text-shadow: none; }
 .bg-default { background-color: #eee; border: 1px solid #ddd; }
@@ -14,9 +8,6 @@ GENERAL
 .text-black { color: #000; }
 .bg-cover-index {
 	background-image: url("http://placehold.it/1920x1080");
-}
-.inncredi-font{
-	font-family: silom;
 }
 .help-block { display: block; }
 .has-error [data-fv-for="sectors[]"] { display: block !important; }
@@ -36,6 +27,28 @@ NAVBAR
 	border: none;
 	border-radius: 0;
 }
+/* colores items menu */
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .nav-link {
+	color: #333;
+}
+.navbar-light .navbar-nav .active .nav-link,
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+	color: #333;
+	border-color: #333;
+}
+/* colores items menu */
+/* separación items menu */
+.navbar-nav > .nav-item {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+/* separación items menu */
+.navbar-brand img { width: 150px; }
 /*=============================================================================
 BLOG
 =============================================================================*/
